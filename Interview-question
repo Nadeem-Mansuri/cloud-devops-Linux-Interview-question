@@ -392,19 +392,24 @@ aws rds modify-db-instance \
   --db-instance-identifier <your-db-instance> \
   --db-instance-class <new-instance-class> \
   --no-apply-immediately
+
 By using --no-apply-immediately, the change will be applied during the maintenance window rather than immediately.
+
 2. Storage Type Changes
 Changing the storage type (e.g., switching from gp2 to io1/io2 or gp3).
 Downtime: Yes, as this may involve stopping the instance temporarily to migrate the storage.
 How to Minimize Downtime: Apply changes during the maintenance window.
+
 3. Enabling Multi-AZ Deployment
 Enabling Multi-AZ requires setting up a secondary replica in another availability zone.
 Downtime: Yes, a brief service disruption occurs when enabling Multi-AZ.
 How to Minimize Downtime: Perform this change during the maintenance window.
+
 4. Parameter Group Changes
 If modifying parameters requires a reboot, such as changing instance-level kernel settings or database engine configuration (e.g., innodb_flush_log_at_trx_commit, max_connections on MySQL or PostgreSQL).
 Downtime: Reboot required for certain parameter modifications.
 How to Minimize Downtime: Schedule the reboot during the maintenance window.
+
 5. Switch to Dedicated Network or Encryption Changes
 Switching to a new VPC/subnet group or enabling encryption on storage.
 Downtime: Yes, changes require migration or reboot.
@@ -458,8 +463,7 @@ Changes That Typically Do NOT Cause Downtime:-
 	
 	
 10. How to extend volume if it is filled up.
-    1. lsblk
+    	1. lsblk
 	2. sudo growpart /dev/nvme0n1 1 (for XFS filesystem)
 	3. sudo xfs_growfs -d /  (for XFS filesystem)
-	
 	4. resize2fs /dev/nvme0n1p1 (For ext4 filesystem)
