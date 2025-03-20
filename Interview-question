@@ -352,3 +352,114 @@ AWS - What is VPC., What are all the prerequisted in order to create a ec2 insta
 what NAT gateway do.
 security grp and NACl difference
 what kind to exposer in cluster.
+
+=================================================================================
+-----------------DEVOPS--------------
+=================================================================================
+1. How you can configure a kubernetes application to available outside world.?
+   To make a Kubernetes application available to the outside world, you need to expose the application's service
+   outside the cluster. Kubernetes provides multiple mechanisms to expose an application, such as using NodePort,
+   LoadBalancer, or Ingress.
+
+2. There is an high latency expericing in RDS instance, How you can resolve it.?
+	To resolve high write latency in RDS:
+
+		Analyze metrics using CloudWatch (identify CPU, I/O, memory, and connection bottlenecks).
+		Optimize slow queries and reduce locking contention.
+		Improve storage performance by using Provisioned IOPS and increasing storage capacity.
+		Scale up the instance class for better resources (CPU and memory).
+		Use read replicas to offload read traffic.
+		Adjust database engine parameters, such as transaction handling and caching.
+		Ensure proper application-level optimizations, such as connection pooling and batch operations.
+		
+These steps should help mitigate the write latency issues. If you're still experiencing issues,
+consider testing your workload on Amazon Aurora where write scaling may be more efficient for high-write applications.
+
+3. How to increase IOPS in RDS.
+
+4. If you change instance type in RDS, is there any downtime.
+Changes That Typically Cause Downtime
+These types of changes require the database instance to reboot, which results in downtime. During the reboot, connectivity to the instance will be interrupted.
+
+	1. Scaling Instance Class
+	Changing the instance type/class (e.g., upgrading from db.t2.micro to db.m5.large).
+	Downtime: Yes, a reboot is required, and downtime will occur while the database instance switches to the new class.
+	How to Minimize Downtime: You can schedule the change during the preferred maintenance window to avoid disrupting live applications:
+bash
+
+
+aws rds modify-db-instance \
+  --db-instance-identifier <your-db-instance> \
+  --db-instance-class <new-instance-class> \
+  --no-apply-immediately
+By using --no-apply-immediately, the change will be applied during the maintenance window rather than immediately.
+2. Storage Type Changes
+Changing the storage type (e.g., switching from gp2 to io1/io2 or gp3).
+Downtime: Yes, as this may involve stopping the instance temporarily to migrate the storage.
+How to Minimize Downtime: Apply changes during the maintenance window.
+3. Enabling Multi-AZ Deployment
+Enabling Multi-AZ requires setting up a secondary replica in another availability zone.
+Downtime: Yes, a brief service disruption occurs when enabling Multi-AZ.
+How to Minimize Downtime: Perform this change during the maintenance window.
+4. Parameter Group Changes
+If modifying parameters requires a reboot, such as changing instance-level kernel settings or database engine configuration (e.g., innodb_flush_log_at_trx_commit, max_connections on MySQL or PostgreSQL).
+Downtime: Reboot required for certain parameter modifications.
+How to Minimize Downtime: Schedule the reboot during the maintenance window.
+5. Switch to Dedicated Network or Encryption Changes
+Switching to a new VPC/subnet group or enabling encryption on storage.
+Downtime: Yes, changes require migration or reboot.
+How to Minimize Downtime: Perform these operations outside peak hours or during the maintenance window.
+
+Changes That Typically Do NOT Cause Downtime:-
+	1. Increasing Storage Size - Increasing allocated storage does not cause downtime.
+	2. Updating Instance Tags - Modifying tags to label or organize instances does not affect services.
+	3. Adding or Modifying Read Replicas - Adding read replicas or modifying existing replicas does not affect the primary instance.
+	4. Performance Features - Changing IOPS values for io1/io2 or switching from gp2 to gp3 does not cause downtime as long as apply-immediately is used.
+	5. Monitoring or Logging Features - Turning on options like Enhanced Monitoring, Performance Insights, or Log Exports typically does not cause downtime.
+	
+6. DR Strategies in AWS	
+	1.Backup & Restore: Lowest cost (pay only for backup storage until you restore).
+	2.Pilot Light: Moderate cost (resources used minimally).
+	3.Warm Standby: Higher cost (scaled-down environments remain operational).
+	4.Multi-Site Active/Active: Highest cost ($$$) due to resource duplication across regions.
+	
+7. When you make DNS changes in Amazon Route 53, how much time it will take for propagation.
+	1. Key Factors Affecting Propagation Time-
+	What is TTL?
+		TTL specifies how long DNS resolvers (e.g., ISPs and caching servers) cache a DNS record before checking for an update.
+		Each DNS record in Route 53 has a TTL value in seconds. For example, if the TTL is 300 seconds (5 minutes), DNS resolvers will use the cached value for 5 minutes before querying Route 53 for the latest record.
+		
+		What happens if TTL is high?
+		If the TTL is long (e.g., 24 hours = 86,400 seconds), resolvers may continue to use the outdated IP address or value until the TTL expires.
+		
+		What happens if TTL is low?
+		Setting a shorter TTL (e.g., 60 seconds) reduces propagation time because resolvers check for changes more frequently.
+		
+8. How you can implement CICD for Kubernetes. 
+	1. Set Up the Kubernetes Cluster
+	2. Set Up a Version Control System (GitHub, GitLab, etc.)
+	3. Automate the Build Process in CI/CD Tool
+	4. Push the Docker Image to a Container Registry
+	5. Update Kubernetes Manifests
+	6.  Deploy to Kubernetes
+		
+	7. Set Up CI/CD Pipelines using Gitlab or Github action
+	8. GitOps for Kubernetes using ArgoCD
+	9. Monitor and Automate Rollbacks
+	
+9. Suppose If your existing Amazon EKS Cluster is configured to use a single Availability Zone (AZ) 
+	with a managed node group, how you can add a new node group in a different AZ in the existing cluster.
+	1. Identify Available AZs in the Region: Check the available AZs for your region:
+	2. Create a New Subnet in the Desired AZ: Choose an AZ that is different from the one where your existing node group resides.
+	3. Ensure the Subnet Has a Route to the Internet (if required):
+	4. Modify Subnet Tags for EKS (Optional):
+	5. Associate the New Subnet with the EKS Cluster
+	6. Create a New Managed Node Group in the New AZ
+	
+	
+10. How to extend volume if it is filled up.
+    1. lsblk
+	2. sudo growpart /dev/nvme0n1 1 (for XFS filesystem)
+	3. sudo xfs_growfs -d /  (for XFS filesystem)
+	
+	4. resize2fs /dev/nvme0n1p1 (For ext4 filesystem)
