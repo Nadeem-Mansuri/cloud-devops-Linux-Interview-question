@@ -1,0 +1,354 @@
+
+Introduction, Techinical Expertise.
+
+1. what all ec2 family instance type you worked on, could you please named them. - 
+2. How you taking a decision while choosing a instances.
+3. How do you take care a High availailabilty while designing a subnet.  - No idea
+4. Is is possible to create multiple subnet into 1 az.                   
+5. Can we have single subnet spread to multiple az.
+6. I want to block cetain IP to my Subnet, how can you do that.
+7. 10 vpc to interconnect, what is the best way to get it done.
+8. what is path based routing in LB.
+9. what is host based routing.
+10. how to you implement a incryption into your loadbalancer. - 
+11. What is difference between Incryption in Trasit and Incryption at rest.
+12. Implementing a SSL certificate in LB, that is  Incryption in Trasit or Incryption at rest.
+13. what is the use of lifecycle hook in autoscaling.
+14. Why do you need API gateway, what all the additonal features you get in API gateway which is not there in Loadbalancer.
+15. What are the different types of records present into a route53. Cname & Alias.
+16. write any cname mapping in example.com.
+17. What is the difference between EBS and S3.
+18. What is Lambda Layer.
+19. what is syncronous and asyncronous invocation.
+20. what is the different kind of encryption is present into S3.
+21. What is lifecyscle policy in S3. reverce order is possible.?
+22. what is IAM role and I am policy.
+23. How many kind of IAM policy are there.
+24. what is mean by principal in IAM policy
+25. what is identity based and resources based policy in IAM.
+26. There is 2 account Account A and Account B, EC2 instance is present into account A and S3 bukcet is present itnt
+account B, How to you configure it so ec2 can access S3 bucket in account B.
+27. WAF, Guardrail, Guardduty, what is cloudfront.
+29. What is multi Az in RDS.
+30. what is use of multli AZ and Read replica in RDS.
+31. what is authentication and authrozation in RDS.
+32. What is log group & Log stream in CLoudwatch.
+33. what is the difference between CW and Cloudtrail.
+34. what is custom metric in cloudwatch.
+35. where you can apply policy.
+36. Types of policy in scp.
+37. Where did SCP affect
+38. What is Dynamic and Static Route in Transit-Gateway
+39. what is DX Location.
+40. How Directconnect Work
+41. How to did you encrypt direct connect traffic
+42. In whcih direct connect partner you are collobarating. Types of diredt connect - Dedicated connection and Hostsed connection.
+43. What is LOA in Direct Connect
+
+=============================================
+------------DOCKER------------------
+=============================================
+1. What is multi staged docker container.
+2. what is the differnce between add and copy.
+3. Your container is writing a log in some path inside a container and you want to see from your host machine.
+4. what is tasks & task defination in ECS.
+==============================================
+
+
+why do we use provider in terrafrom.
+Why do we provisioner.
+scenerio is depend on.
+
+Git.
+How do you change the last commit?
+Use `git commit --amend` to modify the most recent commit. This can change the commit's message or include new changes.
+
+What is the difference between `git merge` and `git rebase`?
+The main difference is in how the branch history is presented. 
+`git merge` preserves the history of a feature branch by creating a new merge commit. 
+`git rebase` rewrites the feature branch's history to appear as if it was developed from the latest main branch, creating a linear history.
+23552 - jira
+What is `git checkout`?
+
+What is the HEAD in Git? HEAD is a reference to the last commit in the currently checked-out branch.
+
+How do you ignore changes in a tracked file?
+Use `git update-index --assume-unchanged <file>` to ignore changes in a tracked file temporarily.
+
+
+
+
+
+What are master component in kubernetes.
+how etcd communicate to API servers.
+kubelet is a master component or node component.
+How the traffic is routed to the Pods, could you please explain.
+What is main purpose of services in kubernetes.
+When we use Liveness probe and Rediness probes.
+
+Root keys lossed of a bastion, how you can fix and login the issue.
+
+ECR -> 
+docker login command
+I am getting error unauthorized while pulling the image from ECR
+
+what is the use of lifecycle hook in autoscaling.
+
+
+inter
+
+
+How Would You Implement Zero-Downtime Deployments in Kubernetes?
+Discuss Strategies for Managing Stateful Applications in Kubernetes.
+Explain How You Would Optimize Resource Usage in a Kubernetes Cluster.
+Describe How You Would Secure a Kubernetes Cluster.
+How Can You Ensure High Availability of the etcd Cluster Used by Kubernetes?
+How Would You Approach Capacity Planning for a Kubernetes Cluster?
+How Do You Handle Logging and Monitoring in a Large-scale Kubernetes Environment?
+
+Task: Write Terraform code to provision an AWS EC2 instance in a specific region with the 
+following specifications:
+
+Instance Type: t2.micro
+AMI: Only Latest AMI's of Ubuntu 20.04.
+Availability Zone: Any
+Security Group: Allow SSH access from anywhere (port 22)
+Key Pair: Use an existing key pair named "my-key-pair"
+Tags: Add a tag with the key "Name" and value "MyInstance"
+
+========
+
+Can you explain the scenario-based usage of the Terraform functions for_each and count? 
+How are they different, and can you provide examples of when you might use each?
+
+Flexibility and Change Management:
+
+resource "aws_kms_key" "session_manager_kms_key" {
+  count                   = local.create_kms_key ? 1 : 0
+  description             = "KMS keys"
+  deletion_window_in_days = 7
+  policy                  = data.aws_iam_policy_document.kms_key_policy[0].json
+}
+
+
+=================================================================
+--------------------GIT-----------------------
+=================================================================
+1. Could you clarify the distinction between monolithic and microservices architectures.
+2. could you provide more details about the specific monolithic architecture you have implemented? Lastly, have you migrated to a microservices architecture within the same project?
+3. If you are working with a monolithic architecture, you typically store all the code in a single repository.
+  However, if you are transitioning to a microservices architecture, will you continue to maintain the code in a single repository,
+  or will you distribute it across multiple repositories? What would be the steps you follow in that scenario?
+4. what is the difference between git merge and git-rebase
+5.  Let’s consider a scenario where you are working on code and have made multiple commits. Now, you want to make another commit, but you want it to use the same commit message as before and avoid creating a new commit message for each push.
+6.  After making 10 commits, you decide that the 11th commit should not be added as a separate commit but instead merged into the previous commit. What would be the steps or commands required to accomplish this?
+7. You are part of a team working on the same codebase, where you are adding and committing changes.
+   However, you encounter a merge conflict in your branch. How would you handle and resolve this conflict,
+   especially since another team member is also working on the same codebase?
+7. which git workflow you are using in your current project.
+
+=======================================================================
+--------------------Jenkins-----------------------
+=====================================================================
+
+1. what kind of pipeline you have created? Would you have knowledge about it? What kind of pipelines are available in the Jenkins.
+2. What is the difference between scripted and declarative pipeline.
+3. what does mean by multi-branch branch pipeline? Why we are using it.
+4. for any pipeline? And you want to integrate all the different tools with Jenkins. For example, you want to pick the code from Github right?
+And then you want to build the code with the enable tool.
+Let's take the meven itself. Okay? Then you need to scan that code with the some scanner tool. 
+Then you want to create some image or something you need to deploy somewhere, right? But these tools, like Docker communities, or the Github,
+or the the Memo itself, how you integrate with the Jenkins
+
+7. Have you set up the Jenkins architecture? Have you? You used right, Jenkins? But you could like install Jenkins or you the slaves, or how the things like architecture means how many
+ Jenkins ma master will be there. Notes will be there right? So which architecture you use like one genuine master, one node. How? How do architecture in your case?
+ 
+8.  which plugins you have used for Jenkins.
+9.  so how you design your pipeline? And what are the steps in the pipeline like? What kind of steps you have taken? I think you should you have written some pipeline for the github? 
+Right? If you want to do some jobs in the through the pipeline itself? So what are the steps in that.
+10. have you worked on any application based pipeline like Java.
+
+Docker:-
+
+1.  what kind of docker file you have created?
+2. main difference between CMD and Entrypoint, can we use both CMD and Entrypoint in a single docker file.
+3. If you use multiple CMD in a single DockerFile, then, what will happen?
+4. How many container runtime available.
+5. what is the main differnce between virtual Machine and container.
+
+Kuberetes: -
+1. What kind of services available in Kubernetes.
+2. Headless service in kubernetes - if only database application will be there, that in that case only we will use the headless service
+4. Deployment stratigic in Kubernetes. if you are deploying and it got failed how do you handle this situation.
+5. Which kubernetes version you are using.
+
+Terrafrom:-
+
+1. How does Terrafrom manages states.
+2. What kind of modules you have worked on.
+3. How you make your application highly available.
+4. RDS replicas. (if one replicas is there and it failed.
+
+---
+
+what is the functionality of Trasit Gateway.
+what is the significance of s3 life cycle policy. How to you utilized.
+
+Account A: s3://epam/demo.txt
+Account B: IAM user - mohammad
+CLI - user - get, list - demo.txt
+- both accounts are not in same OU
+- Cannot use secret/access keys
+
+GitLab.ci yaml explanation.
+
+How would you rollback you deployment.( What went wrong, How did you fix it and how did the rollback happen)
+What all the deployment strategies you have used.
+What all mandatory paratmeter to create a EBS volume using terrafrom.(az,size,type).
+Create a docker file to deploy nginx web server on port 8080. Write commands to build the image and run it as a container.
+
+How to get the following info about pods: 
+a. list of pods in a cluster
+b. description of a specific pod. 
+c. detailed info about pods in a namespace
+d. drain a Node
+
+Shell: 
+Shell command to remotely sync large data from /data1 on server1 to /data2 on server2. Consider main folder to have sub folders.
+
+======
+1. couple of use-cases that you recently implement in AWS.
+2. How to use SSM for patching, how does the entire pipeline use in terms of patching.
+3. How will you design a VPC for a 3 tier Acrh.
+4. Transit Gateway, VPC peering Insight, Pre-check for VPC peering. 
+5. Multi account connectivity and On-Prem connectivity.
+6. NACL rule understanding.
+7. Have you ever worked on handeling multiple accounts Organisation, SCP etc.
+8. What is the first SCP you can think of applying into the root level.
+9. What is the benifits of using ORG.
+10. WHat is the permission set on SSO.
+11. what are the security services you have used in AWS.
+12. How do you set guard duty for an ORG to implement in all the AWS account.
+13. How to integrate Guardduty with security-hub.
+14. What are the different ways will use will RDS in terms of DR, that AWS recommend.
+15. What the switch over strategy when you writer instance is down in terms of DR.
+16. How do you really failover where your replication is configured.
+17. What are limitation of using AWS lambda function like concurrency.
+18. What is the session in boto3, what do we create.
+19. what is the differnce between boto3 client and resources.
+20. For SNS what the endpoint present today to send your notification.
+21. How do you configure SNS in order so it will send notification in order.
+22. what is dead-letter-ques in SQS.
+23. Lets say your instance is deleted 1 year backup, you have a backup of cloudtrail logs present into
+     s3 bucket. Which AWS tools you are going to use to analyis those data.
+24. STS have 2 endpoints, global and regional. how do they differnces where do you use them.
+25. Permission boundry question.
+26. What is the difference between Local and Variables in terrafrom.
+27. Any thing that you can think of we can with locals but not using variable.
+28. Create security group with rules using dynamic block?
+locals{
+allowed cidrs =
+[{"https":"0.0.0.0/0"}, {"ssh":"1.1.1.1/32"}]
+}
+29. What is the differnce between count and for_each in terrafrom.
+30. 
+
+============
+s3 bucket
+vpce policy: allow all traffic: principalORG: org_id
+
+No connectivity between my system and AWS VPC
+
+allow: s3:*
+resource: [arn:aws::s3::mybucket,
+arn:aws::s3::mybucket/*]
+condition:
+  aws:sourceVpce: vpce-s3endpointid
+
+1. Can I view objects of this bucket when logged into this aws account?
+
+2. How can I view the objects?
+================
+
+locals{
+allowed cidrs =
+[{"https":"0.0.0.0/0"}, {"ssh":"1.1.1.1/32"}]
+}
+
+Create security group with rules using dynamic block?
+===============
+
+Linux -> 
+
+========================
+PROXY LINUX INTERVIEW QUES
+========================
+uname -rsv - kernel 
+Initramfs, where it is located.
+If initramfs got correcpted. how to repair.
+how to identity you are working in a physical or a virtual server - dmidecode -t 
+How to create a LVM.
+lsblk - fdisk -l , 
+disk is not reflecting using lsblk or fdisk command.
+how to reduce the disk size to LVM.
+RHEL 8 - XFS. How to reduce 
+How do you export NFS - export /dir - 
+Filesystem is going to readonly mode, how did you fixed it.
+several nfs modes are ther ein linux - how to check 
+How to you set maximum number of files for a specifc user. /etc/security/custom.conf
+how to check what all port are listen for the remote host - nmap is the correct answer.
+How do you check netwirk bandwith between 2 linux server, if you copy a file from 1 to another
+How to set permanent route - > Using Iptables.
+How to check the active routes. -> /etc/netplan.
+How to check kernel messages -> dmesg
+User is not able to create a file ot directory what is the issue. 
+DNS - > explain - port - /etc/resolve, nslookup
+using nslookup not getting anything - How to trouble shoot.
+
+AWS - What is VPC., What are all the prerequisted in order to create a ec2 instance.
+what NAT gateway do.
+security grp and NACl difference
+what kind to exposer in cluster.
+
+=====================================
+DevOps QUES
+=====================================
+ what is the different types of pipiline you are involved with.?
+ what are end to end pipeline structure, how the code deploying to the production.
+ you have moved to production , how did you monitor, what all tools you are using to monitor that.
+ How did the infra for cicd, how it is deployed.
+ How did the provisioing done for the infrastructure.
+ What is terragunt, how terragrunt work, is it apply manuuly or automatics.
+ what about drifting.
+ How did you validate the terraform template, what system you have to check your template -> terraform validate, terraform fmt.
+ lets say you couple of services in AWS and Azure, How did you integrate, how did you r system get authenticated, how did you ensure data transfer
+ 
+ =======================================
+---------LINUX - Proxy Call------------
+========================================
+ uname -rsv - kernel 
+Initramfs, where it is located.
+If initramfs got correcpted. how to repair.
+how to identity you are working in a physical or a virtual server - dmidecode -t 
+How to create a LVM.
+lsblk - fdisk -l , 
+disk is not reflecting using lsblk or fdisk command.
+how to reduce the disk size to LVM.
+RHEL 8 - XFS. How to reduce 
+How do you export NFS - export /dir - 
+Filesystem is going to readonly mode, how did you fixed it.
+several nfs modes are ther ein linux - how to check 
+How to you set maximum number of files for a specifc user. /etc/security/custom.conf
+how to check what all port are listen for the remote host - nmap is the correct answer.
+How do you check netwirk bandwith between 2 linux server, if you copy a file from 1 to another
+How to set permanent route - > Using Iptables.
+How to check the active routes. -> /etc/netplan.
+How to check kernel messages -> dmesg
+User is not able to create a file ot directory what is the issue. 
+DNS - > explain - port - /etc/resolve, nslookup
+using nslookup not getting anything - How to trouble shoot.
+
+AWS - What is VPC., What are all the prerequisted in order to create a ec2 instance.
+what NAT gateway do.
+security grp and NACl difference
+what kind to exposer in cluster.
