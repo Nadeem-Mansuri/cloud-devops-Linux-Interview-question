@@ -354,7 +354,7 @@ security grp and NACl difference
 what kind to exposer in cluster.
 
 =================================================================================
------------------DEVOPS--------------
+                -----------------DEVOPS--------------
 =================================================================================
 1. How you can configure a kubernetes application to available outside world.?
    To make a Kubernetes application available to the outside world, you need to expose the application's service
@@ -362,7 +362,7 @@ what kind to exposer in cluster.
    LoadBalancer, or Ingress.
 
 2. There is an high latency expericing in RDS instance, How you can resolve it.?
-	**To resolve high write latency in RDS:
+   To resolve high write latency in RDS:-
 
 	- Analyze metrics using CloudWatch (identify CPU, I/O, memory, and connection bottlenecks).
 	- Optimize slow queries and reduce locking contention.
@@ -400,8 +400,6 @@ These types of changes require the database instance to reboot, which results in
 	Changing the instance type/class (e.g., upgrading from db.t2.micro to db.m5.large).
 	Downtime: Yes, a reboot is required, and downtime will occur while the database instance switches to the new class.
 	How to Minimize Downtime: You can schedule the change during the preferred maintenance window to avoid disrupting live applications:
-bash
-
 
 aws rds modify-db-instance \
   --db-instance-identifier <your-db-instance> \
@@ -444,16 +442,17 @@ Changes That Typically Do NOT Cause Downtime:-
 	4.Multi-Site Active/Active: Highest cost ($$$) due to resource duplication across regions.
 	
 7. When you make DNS changes in Amazon Route 53, how much time it will take for propagation.
-	1. Key Factors Affecting Propagation Time-
-	What is TTL?
-		TTL specifies how long DNS resolvers (e.g., ISPs and caching servers) cache a DNS record before checking for an update.
-		Each DNS record in Route 53 has a TTL value in seconds. For example, if the TTL is 300 seconds (5 minutes), DNS resolvers will use the cached value for 5 minutes before querying Route 53 for the latest record.
-		
-		What happens if TTL is high?
-		If the TTL is long (e.g., 24 hours = 86,400 seconds), resolvers may continue to use the outdated IP address or value until the TTL expires.
-		
-		What happens if TTL is low?
-		Setting a shorter TTL (e.g., 60 seconds) reduces propagation time because resolvers check for changes more frequently.
+
+A. Key Factors Affecting Propagation Time-
+   What is TTL?
+	TTL specifies how long DNS resolvers (e.g., ISPs and caching servers) cache a DNS record before checking for an update.
+	Each DNS record in Route 53 has a TTL value in seconds. For example, if the TTL is 300 seconds (5 minutes), DNS resolvers will use the cached value for 5 minutes before querying Route 53 for the latest record.
+	
+	What happens if TTL is high?
+	If the TTL is long (e.g., 24 hours = 86,400 seconds), resolvers may continue to use the outdated IP address or value until the TTL expires.
+	
+	What happens if TTL is low?
+	Setting a shorter TTL (e.g., 60 seconds) reduces propagation time because resolvers check for changes more frequently.
 		
 8. How you can implement CICD for Kubernetes. 
 	1. Set Up the Kubernetes Cluster
