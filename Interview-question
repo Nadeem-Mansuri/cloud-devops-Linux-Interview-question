@@ -362,15 +362,15 @@ what kind to exposer in cluster.
    LoadBalancer, or Ingress.
 
 2. There is an high latency expericing in RDS instance, How you can resolve it.?
-	To resolve high write latency in RDS:
+	**To resolve high write latency in RDS:
 
-		Analyze metrics using CloudWatch (identify CPU, I/O, memory, and connection bottlenecks).
-		Optimize slow queries and reduce locking contention.
-		Improve storage performance by using Provisioned IOPS and increasing storage capacity.
-		Scale up the instance class for better resources (CPU and memory).
-		Use read replicas to offload read traffic.
-		Adjust database engine parameters, such as transaction handling and caching.
-		Ensure proper application-level optimizations, such as connection pooling and batch operations.
+	- Analyze metrics using CloudWatch (identify CPU, I/O, memory, and connection bottlenecks).
+	- Optimize slow queries and reduce locking contention.
+	- Improve storage performance by using Provisioned IOPS and increasing storage capacity.
+	- Scale up the instance class for better resources (CPU and memory).
+	- Use read replicas to offload read traffic.
+	- Adjust database engine parameters, such as transaction handling and caching.
+	- Ensure proper application-level optimizations, such as connection pooling and batch operations.
 		
 These steps should help mitigate the write latency issues. If you're still experiencing issues,
 consider testing your workload on Amazon Aurora where write scaling may be more efficient for high-write applications.
