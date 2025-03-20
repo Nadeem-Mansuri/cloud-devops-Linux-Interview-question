@@ -376,6 +376,21 @@ These steps should help mitigate the write latency issues. If you're still exper
 consider testing your workload on Amazon Aurora where write scaling may be more efficient for high-write applications.
 
 3. How to increase IOPS in RDS.
+Using AWS Console:-
+	1. Navigate to RDS in the AWS Management Console.
+	2. Select your database instance.
+	3. Click Modify.
+	4. Change Storage Type to Provisioned IOPS and specify the desired IOPS.
+	5. Adjust the instance type if necessary.
+	6. Using AWS CLI
+
+**Using bash command**
+
+aws rds modify-db-instance \
+  --db-instance-identifier mydbinstance \
+  --allocated-storage 1000 \
+  --iops 20000 \
+  --apply-immediately
 
 4. If you change instance type in RDS, is there any downtime.
 Changes That Typically Cause Downtime
