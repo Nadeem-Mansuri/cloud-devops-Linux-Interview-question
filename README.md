@@ -45,15 +45,11 @@ account B, How to you configure it so ec2 can access S3 bucket in account B.
 42. In whcih direct connect partner you are collobarating. Types of diredt connect - Dedicated connection and Hostsed connection.
 43. What is LOA in Direct Connect
 
-=============================================
-------------DOCKER------------------
-=============================================
+------------DOCKER----------
 1. What is multi staged docker container.
 2. what is the differnce between add and copy.
 3. Your container is writing a log in some path inside a container and you want to see from your host machine.
 4. what is tasks & task defination in ECS.
-==============================================
-
 
 why do we use provider in terrafrom.
 Why do we provisioner.
@@ -75,10 +71,6 @@ What is the HEAD in Git? HEAD is a reference to the last commit in the currently
 How do you ignore changes in a tracked file?
 Use `git update-index --assume-unchanged <file>` to ignore changes in a tracked file temporarily.
 
-
-
-
-
 What are master component in kubernetes.
 how etcd communicate to API servers.
 kubelet is a master component or node component.
@@ -93,10 +85,6 @@ docker login command
 I am getting error unauthorized while pulling the image from ECR
 
 what is the use of lifecycle hook in autoscaling.
-
-
-inter
-
 
 How Would You Implement Zero-Downtime Deployments in Kubernetes?
 Discuss Strategies for Managing Stateful Applications in Kubernetes.
@@ -116,7 +104,7 @@ Security Group: Allow SSH access from anywhere (port 22)
 Key Pair: Use an existing key pair named "my-key-pair"
 Tags: Add a tag with the key "Name" and value "MyInstance"
 
-========
+
 
 Can you explain the scenario-based usage of the Terraform functions for_each and count? 
 How are they different, and can you provide examples of when you might use each?
@@ -131,9 +119,9 @@ resource "aws_kms_key" "session_manager_kms_key" {
 }
 
 
-==============================
---------------------GIT-------
-==============================
+
+-------GIT-------
+
 1. Could you clarify the distinction between monolithic and microservices architectures.
 2. could you provide more details about the specific monolithic architecture you have implemented? Lastly, have you migrated to a microservices architecture within the same project?
 3. If you are working with a monolithic architecture, you typically store all the code in a single repository.
@@ -147,9 +135,7 @@ resource "aws_kms_key" "session_manager_kms_key" {
    especially since another team member is also working on the same codebase?
 7. which git workflow you are using in your current project.
 
-=======================================
---------------------Jenkins------------
-=======================================
+----------Jenkins----------
 
 1. what kind of pipeline you have created? Would you have knowledge about it? What kind of pipelines are available in the Jenkins.
 2. What is the difference between scripted and declarative pipeline.
@@ -189,8 +175,6 @@ Terrafrom:-
 3. How you make your application highly available.
 4. RDS replicas. (if one replicas is there and it failed.
 
----
-
 what is the functionality of Trasit Gateway.
 what is the significance of s3 life cycle policy. How to you utilized.
 
@@ -216,7 +200,7 @@ d. drain a Node
 Shell: 
 Shell command to remotely sync large data from /data1 on server1 to /data2 on server2. Consider main folder to have sub folders.
 
-======
+
 1. couple of use-cases that you recently implement in AWS.
 2. How to use SSM for patching, how does the entire pipeline use in terms of patching.
 3. How will you design a VPC for a 3 tier Acrh.
@@ -276,13 +260,13 @@ allowed cidrs =
 }
 
 Create security group with rules using dynamic block?
-===============
+
 
 Linux -> 
 
-========================
-PROXY LINUX INTERVIEW QUES
-========================
+
+==PROXY LINUX INTERVIEW QUES==
+
 uname -rsv - kernel 
 Initramfs, where it is located.
 If initramfs got correcpted. how to repair.
@@ -310,9 +294,9 @@ what NAT gateway do.
 security grp and NACl difference
 what kind to exposer in cluster.
 
-=============================
-      DevOps QUES
-=============================
+
+=== DevOps QUES ==
+
  what is the different types of pipiline you are involved with.?
  what are end to end pipeline structure, how the code deploying to the production.
  you have moved to production , how did you monitor, what all tools you are using to monitor that.
@@ -324,9 +308,7 @@ what kind to exposer in cluster.
  lets say you couple of services in AWS and Azure, How did you integrate, how did you r system get authenticated, how did you ensure data transfer
  
 
-=======================================
------------------DEVOPS--------------
-========================================
+----------DEVOPS-----------
 1. How you can configure a kubernetes application to available outside world.?
    To make a Kubernetes application available to the outside world, you need to expose the application's service
    outside the cluster. Kubernetes provides multiple mechanisms to expose an application, such as using NodePort,
@@ -453,9 +435,8 @@ A. Key Factors Affecting Propagation Time-
 	3. sudo xfs_growfs -d /  (for XFS filesystem)
 	4. resize2fs /dev/nvme0n1p1 (For ext4 filesystem)
 
-=========================
-==========AWS QUEST======
- ========================
+=======AWS QUEST======
+ 
 1. Difference between persission boundry and SCP?
 
 When to Use Permissions Boundary vs SCP - 
