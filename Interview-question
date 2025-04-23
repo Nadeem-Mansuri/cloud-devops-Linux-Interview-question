@@ -323,35 +323,6 @@ DevOps QUES
  How did you validate the terraform template, what system you have to check your template -> terraform validate, terraform fmt.
  lets say you couple of services in AWS and Azure, How did you integrate, how did you r system get authenticated, how did you ensure data transfer
  
- =======================================
----------LINUX - Proxy Call------------
-========================================
- uname -rsv - kernel 
-Initramfs, where it is located.
-If initramfs got correcpted. how to repair.
-how to identity you are working in a physical or a virtual server - dmidecode -t 
-How to create a LVM.
-lsblk - fdisk -l , 
-disk is not reflecting using lsblk or fdisk command.
-how to reduce the disk size to LVM.
-RHEL 8 - XFS. How to reduce 
-How do you export NFS - export /dir - 
-Filesystem is going to readonly mode, how did you fixed it.
-several nfs modes are ther ein linux - how to check 
-How to you set maximum number of files for a specifc user. /etc/security/custom.conf
-how to check what all port are listen for the remote host - nmap is the correct answer.
-How do you check netwirk bandwith between 2 linux server, if you copy a file from 1 to another
-How to set permanent route - > Using Iptables.
-How to check the active routes. -> /etc/netplan.
-How to check kernel messages -> dmesg
-User is not able to create a file ot directory what is the issue. 
-DNS - > explain - port - /etc/resolve, nslookup
-using nslookup not getting anything - How to trouble shoot.
-
-AWS - What is VPC., What are all the prerequisted in order to create a ec2 instance.
-what NAT gateway do.
-security grp and NACl difference
-what kind to exposer in cluster.
 
 =================================================================================
                 -----------------DEVOPS--------------
@@ -481,3 +452,191 @@ A. Key Factors Affecting Propagation Time-
 	2. sudo growpart /dev/nvme0n1 1 (for XFS filesystem)
 	3. sudo xfs_growfs -d /  (for XFS filesystem)
 	4. resize2fs /dev/nvme0n1p1 (For ext4 filesystem)
+
+===================================================================================================================================
+			=============AWS QUEST======
+1. Difference between persission boundry and SCP?
+
+When to Use Permissions Boundary vs SCP - 
+Use Permissions Boundary:
+For individual IAM users or roles where you want to limit the maximum permissions.
+Delegating administrative control while ensuring they can’t exceed specific permission limits.
+Fine-grained control within a single AWS account.
+
+Use Service Control Policy (SCP):
+For multi-account environments where you want to enforce compliance or security rules across many AWS accounts.
+To standardize service access and restrictions across an organization or prevent unauthorized use of services (e.g., blocking public S3 buckets across all accounts).
+Broad control across organizational units or accounts.
+
+2. How to enable cross-account access to an Amazon S3 bucket in AWS?
+There are multiple ways to enable cross-account access to S3:
+
+A. Bucket policy is the simplest and most direct technique, useful for simple resource-level permissions.
+B. IAM roles provide a fine-grained and secure mechanism for controlling cross-account access, preferred in complex organizational setups.
+C. Access Points simplify permissions management for large-scale bucket sharing.
+
+3. What is a StackSet in AWS CloudFormation?
+A StackSet in AWS CloudFormation is a feature that allows you to manage CloudFormation stacks across multiple AWS accounts and regions from a centralized location.
+It simplifies and automates the deployment and management of AWS resources for multi-account and multi-region architectures, ensuring consistency and scalability
+in your infrastructure configuration.
+
+How Does a StackSet Work?
+A. Create a CloudFormation template that defines the resources you want to deploy.
+B. From your administrator account, create a StackSet and specify the list of target accounts and AWS regions in which the stacks should be deployed.
+C. AWS CloudFormation uses service-managed roles or self-managed permissions to deploy stacks into the target accounts and regions.
+D. Updates to the StackSet are automatically rolled out across all the associated stacks.
+
+4. Upgrade Process of EKS Cluster and Worker Node with zero downtime.
+It can be done via AWS CLI or Terraform.
+
+5. How to avoid using a NATING during the upgrade of an Amazon EKS cluster?
+To avoid using a NAT Gateway during the upgrade of an Amazon EKS cluster, you need to ensure that the EKS control plane components and worker nodes
+(or managed node groups) can communicate with required AWS services (e.g., amazonaws.com endpoints, container registries, etc.) without routing through
+the public internet. This can be achieved by leveraging VPC endpoints to enable private network communication between your EKS cluster and AWS services.
+
+
+6. What are the steps to install datadog agent into worker node.
+The installation of the Datadog Agent on EKS worker nodes will use a DaemonSet.
+A DaemonSet ensures that a copy of the Datadog Agent runs on every worker node within your Kubernetes cluster.
+
+A. Ensure you have a Datadog account and obtain your API key. Go to Integrations → APIs in your Datadog dashboard.
+B. IAM Role for ServiceAccount (IRSA): To enable the Datadog Agent to appropriately monitor and interact with AWS resources securely, you need to create an IAM Role for ServiceAccount.
+C. Step 3: Deploy the Datadog Agent.
+	Add Datadog Helm Repository: Datadog provides a Helm chart for easy installation of the Agent.
+	# helm repo add datadog https://helm.datadoghq.com
+	# helm repo update
+
+Step 4: Verify Datadog Integration
+Datadog Dashboard:
+
+Log in to your Datadog dashboard and navigate to the Infrastructure section. You should see metrics populating from the worker nodes and Kubernetes clusters.
+Containers and Logs:
+
+Confirm that container-level metrics are collected by Datadog.
+If enabled, logs should also be available (e.g., Kubernetes events).
+
+7. How to upgrade worker nodes in an Amazon Elastic Kubernetes Service (EKS) cluster with zero downtime.
+By following the rolling upgrade strategy—whether using managed or self-managed node groups—you can upgrade EKS worker nodes with zero downtime.
+
+8. What is IRSA in Kubernetes (Amazon EKS)?
+IRSA, or IAM Roles for Service Accounts, is a feature introduced by AWS for Amazon EKS (Elastic Kubernetes Service) that integrates Kubernetes service accounts
+with AWS Identity and Access Management (IAM) roles. IRSA allows you to associate IAM roles with Kubernetes service accounts to manage permissions for pods
+running within your EKS cluster.
+This eliminates the need to attach IAM permissions directly to an EC2 instance (e.g., worker nodes), thereby enabling fine-grained access control for workloads in Kubernetes. 
+With IRSA, pods in your Kubernetes cluster can perform secure, scoped actions in your AWS environment by using temporary credentials tied to the associated IAM role.
+
+9. What Problems Does IRSA Solve?
+
+Granular IAM Permissions:
+Without IRSA, granting IAM permissions is typically done at the EC2 instance level. All pods on the same node can inherit the same IAM role, leading to over-permissioning.
+IRSA allows you to attach specific IAM roles to individual service accounts, ensuring pods using these service accounts only have access to what they need.
+
+Security:
+By removing node-level IAM permissions and tying them to individual pods (via service accounts), IRSA reduces the blast radius if a pod is compromised.
+
+IAM Credential Management:
+IRSA uses AWS Security Token Service (STS) to manage temporary credentials for pods, ensuring credentials remain dynamic and secure without manual intervention.
+
+10. How IRSA Works?
+
+Here's a high-level summary of how IRSA integrates AWS and Kubernetes:
+
+Service Account in Kubernetes:
+You create a Kubernetes service account in a specific namespace where the pod resides.
+
+IAM Role Associated with Service Account:
+You create an IAM role in AWS and associate it with the Kubernetes service account. This IAM role includes the permissions the pod requires to interact with AWS services
+(e.g., S3, DynamoDB, CloudWatch).
+
+OIDC Identity Provider:
+Amazon EKS uses an OpenID Connect (OIDC) identity provider to authenticate the pod for AWS API calls.
+You must enable an OIDC identity provider for your cluster.
+
+Pod Uses Service Account:
+Pods running in the cluster use the specified service account, which in turn assumes the IAM role associated with it. 
+The permissions granted to this IAM role dictate what AWS actions the pod can perform.
+
+**Common Issues and Troubleshooting in ORSA
+
+Role Not Applied to Pod:
+Ensure the pod uses the correct serviceAccountName and the service account has the required IAM role annotation.
+
+Invalid OIDC Configuration:
+Verify the OIDC provider URL, thumbprint, and IAM role trust relationship.
+
+Insufficient Permissions:
+If the pod is unable to access AWS resources, make sure the IAM policy attached to the role provides the necessary actions and resources.
+
+11. How how pods networking works in eks cluster?
+Networking for pods in an Amazon EKS (Elastic Kubernetes Service) cluster is primarily based on the Kubernetes networking model,
+integrated with AWS's networking infrastructure (such as the VPC, subnets, ENIs, and security groups).
+
+12. how pods networking works in eks cluster?
+
+Pod networking in Amazon EKS is achieved using the AWS VPC CNI plugin, which tightly integrates Kubernetes and AWS networking concepts.
+It provides pod-level IPs directly in the VPC, supports advanced routing between pods, and allows secure communication with AWS resources.
+By leveraging Kubernetes networking policies and AWS infrastructure, pod networking in EKS ensures scalability, security, and seamless integration with other AWS services.
+
+** High-Level Overview
+Pods in EKS use Container Network Interface (CNI) plugins for networking.
+AWS provides the vpc-cni plugin (AWS CNI), which allows Kubernetes pods to get IP addresses directly from the Amazon VPC's subnet and communicate using the VPC's networking features.
+Each pod in the cluster is assigned a private IP address from the VPC.
+
+Key Components of Pod Networking in EKS:-
+1. Amazon VPC
+
+EKS uses an Amazon Virtual Private Cloud (VPC) to facilitate pod networking:
+
+Pods get IP addresses from the VPC's subnets.
+These IP addresses allow pods to natively communicate with other AWS services (e.g., S3, DynamoDB) via private IP-based VPC routing.
+Internet access is possible through NAT Gateways or VPC endpoints.
+
+2. AWS CNI Plugin
+The AWS CNI (vpc-cni) plugin is the default CNI plugin used in EKS clusters:
+
+It assigns Elastic Network Interfaces (ENIs) and private IP addresses from the VPC to Kubernetes pods running on worker nodes.
+The IP addresses assigned to the pods come from the worker node's subnet, making it possible for pods to communicate with AWS resources directly.
+
+Key features of AWS CNI:
+
+Pods are treated as native VPC resources.
+Supports multiple ENIs for high scalability on nodes.
+Pod-to-Node communication occurs via private IP addresses.
+
+3. Elastic Network Interfaces (ENIs)
+When a pod is created, the worker node's ENI handles networking for the pod:
+
+The ENI is attached to the underlying EC2 instance (worker node).
+The primary and secondary IP addresses on the ENI are assigned to pods.
+
+4. Kubernetes Networking
+Kubernetes relies on the networking model where:
+
+Every pod in the cluster gets its own IP address (Pod IP).
+Pods communicate with each other regardless of which nodes they reside on (using the overlay network or AWS VPC routing).
+Network rules (e.g., NetworkPolicies) control allowed communications between pods.
+
+**Pod Networking Flow in EKS
+1. Pod Creation
+When Kubernetes schedules a pod:
+
+The AWS CNI plugin requests an IP address for the pod from the VPC subnet associated with the worker node.
+The CNI plugin allocates an available secondary IP from the node's ENI and assigns it to the pod.
+
+2. Pod-to-Pod Communication
+Pod networking in EKS follows the Kubernetes networking model:
+
+Same Node: If two pods are running on the same node, they communicate locally via the localhost or the worker node's internal network.
+Different Nodes: Pods on different nodes communicate via the VPC to route traffic. The worker nodes' ENIs and subnet configuration handle inter-node communication.
+
+3. Pod-to-Service Communication
+When pods communicate with a Kubernetes service:
+
+A service has a ClusterIP, which acts as a virtual IP backed by an iptables or IPVS configuration.
+Pods reach the service and route traffic to one of its backend pods (using kube-proxy for load balancing).
+
+4. Pod-to-External Communication
+For external communication, pods typically:
+
+Route traffic through a NAT gateway if they are in private subnets.
+Use AWS VPC endpoints for direct communication with AWS services like S3 or DynamoDB, bypassing the internet.
