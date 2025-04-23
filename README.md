@@ -131,9 +131,9 @@ resource "aws_kms_key" "session_manager_kms_key" {
 }
 
 
-=================================================================
---------------------GIT-----------------------
-=================================================================
+==============================
+--------------------GIT-------
+==============================
 1. Could you clarify the distinction between monolithic and microservices architectures.
 2. could you provide more details about the specific monolithic architecture you have implemented? Lastly, have you migrated to a microservices architecture within the same project?
 3. If you are working with a monolithic architecture, you typically store all the code in a single repository.
@@ -147,9 +147,9 @@ resource "aws_kms_key" "session_manager_kms_key" {
    especially since another team member is also working on the same codebase?
 7. which git workflow you are using in your current project.
 
-=======================================================================
---------------------Jenkins-----------------------
-=====================================================================
+=======================================
+--------------------Jenkins------------
+=======================================
 
 1. what kind of pipeline you have created? Would you have knowledge about it? What kind of pipelines are available in the Jenkins.
 2. What is the difference between scripted and declarative pipeline.
@@ -310,9 +310,9 @@ what NAT gateway do.
 security grp and NACl difference
 what kind to exposer in cluster.
 
-=====================================
-DevOps QUES
-=====================================
+=============================
+      DevOps QUES
+=============================
  what is the different types of pipiline you are involved with.?
  what are end to end pipeline structure, how the code deploying to the production.
  you have moved to production , how did you monitor, what all tools you are using to monitor that.
@@ -324,9 +324,9 @@ DevOps QUES
  lets say you couple of services in AWS and Azure, How did you integrate, how did you r system get authenticated, how did you ensure data transfer
  
 
-=================================================================================
-                -----------------DEVOPS--------------
-=================================================================================
+=======================================
+-----------------DEVOPS--------------
+========================================
 1. How you can configure a kubernetes application to available outside world.?
    To make a Kubernetes application available to the outside world, you need to expose the application's service
    outside the cluster. Kubernetes provides multiple mechanisms to expose an application, such as using NodePort,
@@ -453,8 +453,9 @@ A. Key Factors Affecting Propagation Time-
 	3. sudo xfs_growfs -d /  (for XFS filesystem)
 	4. resize2fs /dev/nvme0n1p1 (For ext4 filesystem)
 
-===================================================================================================================================
-			=============AWS QUEST======
+=========================
+==========AWS QUEST======
+ ========================
 1. Difference between persission boundry and SCP?
 
 When to Use Permissions Boundary vs SCP - 
