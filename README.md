@@ -267,12 +267,12 @@ Linux ->
 
 ==PROXY LINUX INTERVIEW QUES==
 
-uname -rsv - kernel 
+uname -rsv - kernel.
 Initramfs, where it is located.
 If initramfs got correcpted. how to repair.
 how to identity you are working in a physical or a virtual server - dmidecode -t 
 How to create a LVM.
-lsblk - fdisk -l , 
+lsblk - fdisk -l.
 disk is not reflecting using lsblk or fdisk command.
 how to reduce the disk size to LVM.
 RHEL 8 - XFS. How to reduce 
