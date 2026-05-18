@@ -3168,6 +3168,114 @@ AI has become a genuine productivity multiplier across several workflows:
 
 ---
 
+---
+
+## Bonus Question
+
+---
+
+### 143. How do you prevent Cyber Attacks on AWS?
+
+A layered, defense-in-depth approach is the standard. Key practices:
+
+---
+
+#### 1. Identity & Access Management (IAM)
+
+- Enforce least privilege; avoid wildcard `*` permissions
+- Use IAM roles (not long-lived access keys) for EC2, Lambda, ECS
+- Require MFA for all users, especially the root account
+- Lock away root credentials; use it only for tasks that require it
+- Rotate access keys; use IAM Identity Center (SSO) for human access
+- Use permission boundaries and Service Control Policies (SCPs) in AWS Organizations
+
+---
+
+#### 2. Network Security
+
+- Put workloads in private VPC subnets; expose only what's needed via ALB/NLB
+- Tight Security Groups (stateful) and NACLs (stateless) — no `0.0.0.0/0` on SSH/RDP
+- Use AWS WAF in front of CloudFront/ALB/API Gateway (OWASP managed rules)
+- Enable AWS Shield Advanced for DDoS protection on critical endpoints
+- Use VPC endpoints (PrivateLink) to avoid traversing the public internet
+- Use Session Manager instead of SSH bastions
+
+---
+
+#### 3. Data Protection
+
+- Encrypt at rest with KMS (S3, EBS, RDS, DynamoDB) — prefer customer-managed CMKs
+- Encrypt in transit with TLS 1.2+; enforce HTTPS on S3 and ALBs
+- Block S3 public access at the account level; use bucket policies + Access Points
+- Enable S3 Object Lock / versioning for ransomware resilience
+- Use Secrets Manager or Parameter Store — never hardcode secrets
+
+---
+
+#### 4. Detection & Monitoring
+
+- Enable CloudTrail (multi-region, with log file validation) in all accounts
+- Enable GuardDuty (threat detection on logs, DNS, EKS, S3, Malware Protection)
+- AWS Security Hub to aggregate findings against CIS / AWS Foundational Best Practices
+- AWS Config for resource compliance and drift detection
+- VPC Flow Logs, DNS query logs, WAF logs → centralised in S3 / OpenSearch
+- Set up CloudWatch alarms + EventBridge → SNS/Slack for critical events
+
+---
+
+#### 5. Vulnerability & Patch Management
+
+- Amazon Inspector for EC2, Lambda, and container image CVE scanning
+- ECR image scanning + sign images with Notation/Cosign
+- Systems Manager Patch Manager for OS patching
+- Scan IaC (Terraform/CloudFormation) with cfn-nag, Checkov, tfsec
+
+---
+
+#### 6. Account & Organisation Hygiene
+
+- Multi-account strategy via AWS Organizations (separate prod/dev/security/log accounts)
+- Centralise logs in a dedicated, write-only log archive account
+- Apply SCPs to deny risky actions (disabling CloudTrail, leaving allowed regions, etc.)
+- Use Control Tower for guardrails on new accounts
+
+---
+
+#### 7. Application Layer
+
+- Validate input; protect against OWASP Top 10 (SQLi, XSS, SSRF — common on EC2 metadata, mitigated by IMDSv2)
+- Enforce IMDSv2 on all EC2 instances
+- Use short-lived credentials via STS AssumeRole
+- Sign and verify API requests (SigV4); use Cognito/OIDC for user auth
+
+---
+
+#### 8. Incident Response
+
+- Pre-build an IR runbook; practice with tabletop exercises
+- Use isolation playbooks: quarantine SGs, snapshot EBS, revoke sessions
+- Automate response with EventBridge + Lambda + SSM Automation
+- Maintain immutable backups in a separate account (defense against ransomware)
+
+---
+
+#### 9. Compliance & Governance
+
+- Run AWS Trusted Advisor and Well-Architected Tool (Security Pillar) reviews
+- Tag resources for ownership and cost/security accountability
+
+---
+
+#### Quick Wins to Do Today
+
+1. Enable MFA on root + all IAM users
+2. Turn on GuardDuty, Security Hub, CloudTrail org-wide
+3. Block S3 public access at the account level
+4. Enforce IMDSv2 on every EC2
+5. Remove unused IAM users / access keys older than 90 days
+
+---
+
 *End of Interview Guide*
 
 ---
