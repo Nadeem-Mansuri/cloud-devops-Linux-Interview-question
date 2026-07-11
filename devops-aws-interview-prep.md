@@ -450,6 +450,174 @@ This allows only pods labeled `role: app` to reach `role: database` pods on port
 **Q6. How do you write a default-deny policy?**
 Apply a policy with an empty `podSelector` and `policyTypes: Ingress` (and/or Egress) with no `ingress`/`egress` rules — this blocks all traffic, then layer allow rules.
 
+### More NetworkPolicy Examples
+
+**Example 1: Default-deny all ingress in a namespace.**
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+```
+An empty `podSelector` selects all pods; with no `ingress` rules, all incoming traffic is denied.
+
+**Example 2: Default-deny all egress.**
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-egress
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+```
+Blocks all outbound traffic from every pod in the namespace until explicit egress rules are added.
+
+**Example 3: Default-deny all ingress and egress (full lockdown).**
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+```
+
+**Example 4: Allow ingress only from a specific namespace.**
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-monitoring-ns
+  namespace: production
+spec:
+  podSelector:
+    matchLabels:
+      role: api
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              team: monitoring
+      ports:
+        - protocol: TCP
+          port: 8080
+```
+Only pods in namespaces labeled `team: monitoring` can reach `role: api` pods on port 8080.
+
+**Example 5: Allow egress to DNS only (CoreDNS).**
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: production
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+```
+A common companion to a default-deny-egress policy so pods can still resolve DNS.
+
+**Example 6: Allow egress to an external CIDR (with exceptions).**
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-external-egress
+  namespace: production
+spec:
+  podSelector:
+    matchLabels:
+      role: worker
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 169.254.169.254/32   # block cloud metadata endpoint
+              - 10.0.0.0/8            # block internal RFC1918 range
+      ports:
+        - protocol: TCP
+          port: 443
+```
+Uses `ipBlock` to allow outbound HTTPS to the internet while blocking the instance metadata service and internal ranges.
+
+**Example 7: Combine podSelector and namespaceSelector (AND logic).**
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-app-from-trusted-ns
+  namespace: production
+spec:
+  podSelector:
+    matchLabels:
+      role: database
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              env: prod
+          podSelector:
+            matchLabels:
+              role: app
+      ports:
+        - protocol: TCP
+          port: 5432
+```
+A single `from` entry with both selectors means traffic must come from `role: app` pods **that also live in** an `env: prod` namespace. (Listing them as separate `-` items would be OR logic instead.)
+
+**Example 8: Allow ingress from anywhere on a public port.**
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-public-web
+  namespace: production
+spec:
+  podSelector:
+    matchLabels:
+      role: frontend
+  policyTypes:
+    - Ingress
+  ingress:
+    - from: []
+      ports:
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
+```
+An empty `from: []` allows traffic from all sources to the frontend on ports 80/443.
+
 **Q7. What tools do you use to work with/secure Kubernetes?**
 - **Deployment/packaging**: Helm, Kustomize.
 - **CI/CD & GitOps**: ArgoCD, Flux.
